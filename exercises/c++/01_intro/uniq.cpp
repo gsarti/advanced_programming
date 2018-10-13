@@ -30,4 +30,5 @@ int main()
   }
   result << count << " " << previous_line << "\n";
   std::cout << result.str() << std::endl;
+  return 0;
 }
