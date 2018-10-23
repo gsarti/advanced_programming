@@ -4,8 +4,8 @@
 #if __cplusplus > 201103L
 
 template <class T>
-auto init(const std::size_t l) {
-  return new T[l]{};
+auto init(const std::size_t l) { // Automatically understands the type of the variable returned by init
+  return new T[l]{}; // Equivalent to calloc() in C, without the braces equal to malloc()
 }
 
 #else

@@ -2,6 +2,9 @@
 #include <string>
 #include <vector>
 
+//std::vector elements live in the heap, while std::arrays live in the stack
+//Their size can be increased dynamically making data contiguous in memory
+
 // template<class T, class Allocator = std::allocator<T>>
 // class vector;
 
@@ -9,8 +12,8 @@ template <typename T>
 void print_vector(const std::vector<T>& v, const std::string& s);
 
 int main() {
-  std::vector<int> v0{1, 2, 4};
-  std::vector<int> v1(4, 4);
+  std::vector<int> v0{1, 2, 4}; //three elements: 1,2,4
+  std::vector<int> v1(4, 4); //four elements, each of them are 4
 
   print_vector(v0, "v0");
   print_vector(v1, "v1");
