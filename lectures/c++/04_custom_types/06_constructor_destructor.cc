@@ -45,7 +45,7 @@ std::ostream& operator<<(std::ostream& os, const Foo& f) {
 int main() {
   Foo f0;    // call default ctor
   Foo f1{};  // call default ctor
-  // Foo f2(); // compiler error
+  //Foo f2(); // compiler error       //Actually works but doesn't pass through ctor/dtor cycle
 
   Foo f2{8, 2.2, "hello"};
   std::cout << "f0: " << f0 << "f1: " << f1 << "f2: " << f2 << std::endl;

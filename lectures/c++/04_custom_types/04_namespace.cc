@@ -1,5 +1,8 @@
 #include <iostream>
 
+/*unnamed namespace make symbols contained only inside the brackets
+without making them accessible by other functions.*/
+
 namespace choose_a_name {
 
   int variable;

@@ -37,6 +37,9 @@ int main() {
   p->x = 0.0;
   p->print();
 
+  Point_c* p2 = &pc;
+  //p2->x = 2.0; //still inaccessible
+
   auto& pr = ps;
   ++pr.x;
   pr.print();
@@ -49,7 +52,7 @@ int main() {
   as[3].x = 3;
 
   std::vector<Point_s> vs;
-  vs.push_back(ps);
+  vs.push_back(ps); //The value is a copy instead of a reference if this is not specified
   vs[0].x = 999;
   ps.x = 11;
   ps.print();

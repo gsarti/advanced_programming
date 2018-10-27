@@ -6,7 +6,7 @@ using namespace std;
 
 int main() {
   cout << nov << endl;
-  // cout << dec << endl;
+  // cout << dec << endl; //dec is ambiguous if namespace is not used
 
   return 0;
 }
