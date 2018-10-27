@@ -29,4 +29,5 @@ int main()
     std::cout << d5 << std::endl;
     d1.add_days(24);
     std::cout << d1 << std::endl;
+    return 0;
 }

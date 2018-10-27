@@ -8,7 +8,6 @@
 
 # include "date.hpp"
 #include <iostream>
-#include <sstream>
 
 Date::Date(const unsigned short day, const month_enum month, const int year)
 {
