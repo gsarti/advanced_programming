@@ -1,3 +1,5 @@
+// Even for HPC applications, it is better to use this kind of pointers to avoid possible problems.
+
 #include <iostream>
 #include <memory>  // std::uniqe_ptr
 
@@ -17,7 +19,9 @@ class Vector {
 };
 
 class ManyResources {
-  std::unique_ptr<double[]> ptr;
+  // Custom type of pointer with unique ownership
+
+  std::unique_ptr<double[]> ptr; 
   Vector v;
 
  public:

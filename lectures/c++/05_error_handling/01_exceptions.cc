@@ -18,7 +18,7 @@ int main() {
     auto d = square_root(number);
     std::cout << "square root of " << number << " is " << d << '\n';
     return 0;
-  } catch (const Negative_number) {
+  } catch (const Negative_number) { //Argument exceptions are struct
     std::cerr << "The square root of a negative number is a complex number.\n"
                  "square_root() is "
               << "limited to handle positive double numbers.\n";

@@ -1,3 +1,6 @@
+// Constructors can throw exceptions
+// Destructors throwing exceptions cause undefined behavior, don't do that.
+
 #include <iostream>
 #include <vector>
 
@@ -33,18 +36,18 @@ class ManyResources {
   Vector v;
 
  public:
-  ManyResources() : ptr{nullptr}, v{3} {
+  ManyResources() : ptr{nullptr}, v{3} { //It is initialized as nullptr since if the new threw an error we would delete random memory locations
     std::cout << "Manyresources\n";
     try {
       ptr = new double[5];  // new(std::nothrow) double[5] could be better
       AP_ERROR(false) << "Error in ManyResources ctor.\n";
     } catch (...) {
       delete[] ptr;  // <----
-      throw;
+      throw; //throws the same error that was catched
     }
   }
 
-  ~ManyResources() noexcept {
+  ~ManyResources() noexcept { //The noexcept argument marks a function that is assured not to throw exceptions.
     std::cout << "Manyresources\n";
     delete[] ptr;  // <----
   }
@@ -56,7 +59,10 @@ int main() {
   try {
     // int * raw_ptr=new int[7]; // wrong because raw_ptr would not be visible
     // inside the catch-clause
-    ManyResources mr;
+    
+    //Since the ManyResources constructor didn't complete, only the Vector destructor is called 
+    //during the stack unwinding phase after the throw.
+    ManyResources mr; 
     Bar b;
 
   } catch (const std::exception& e) {

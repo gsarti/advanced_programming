@@ -28,7 +28,8 @@ int main() {
 
 double square_root(const double d) {
   // test the pre-conditions
-  assert(d >= 0 && d <= 50);  // provided by C, no execptions
+  assert(d >= 0 && d <= 50);  // provided by C, no execptions (included in assert.h)
+  //If the assertion fails, the execution is aborted
 
   // AP_ASSERT(d>=0 && d<=50) <<  "d should be in the range [0,50]";
 
