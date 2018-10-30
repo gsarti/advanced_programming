@@ -48,7 +48,7 @@ class Matrix
             {
                 for(int i = 0; i < m_columns; i++)
                 {
-                    t_matrix[j * m_rows + i] = m_matrix[i * m_columns + j];
+                    t_matrix[j * m_columns + i] = m_matrix[i * m_rows + j];
                 }
             }
 	
@@ -65,11 +65,11 @@ class Matrix
 template <int size>
 std::ostream& operator<<(std::ostream& os, const Matrix<size>& m)
 {
-    for(int i = 0; i < m.rows(); i++)
+    for(int i = 0; i < m.columns(); i++)
     {
-        for(int j = 0; j < m.columns(); j++)
+        for(int j = 0; j < m.rows(); j++)
         {
-            int pos_val = j + i * m.columns();
+            int pos_val = j + i * m.rows();
             os << m[pos_val] << " ";
         }
         

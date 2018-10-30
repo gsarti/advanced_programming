@@ -25,6 +25,6 @@ int main()
     std::cout << mat2 << std::endl;
     std::cout << "Performing transposition..." << std::endl;
     mat2.transpose();
-    std::cout << mat2 << std::endl; // TODO: Still not working
+    std::cout << mat2 << std::endl;
     return 0;
 }
