@@ -11,8 +11,8 @@ struct Y {
   int a = 77;
   double b;
   char c = 'a';
-  Y() : a{5} {}  // what it is written here wins the in-class initialization
-  // Y() = default;
+  Y() : a{5} {}  // what it is written here wins the in-class initialization. Calling Y() will held a = 5 as a result.
+  // Y() = default; //in this case, a would be 77
 };
 
 int main() {

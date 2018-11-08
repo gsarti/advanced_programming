@@ -1,3 +1,16 @@
+/*
+
+Introduces the concept of shallow copy.
+
+The copy constructor will create a shallow copy as default, because it's cheaper and faster.
+Any modification to the copy will also be applied on the original element.
+
+The copy on write pattern implies creating a shallow copy which becomes a deep copy at the moment its values are modified.
+
+Explicit keyword is used to specify that the one-parameter function is a custom ctor and not an overriding of a function converting the type of parameter
+in the ctor. Construction are allowed to do this type of conversion only once to extend function behaviors to all numerical types.
+*/
+
 #include <iostream>
 
 template <typename num>

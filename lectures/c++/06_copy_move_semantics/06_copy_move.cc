@@ -1,3 +1,19 @@
+/*
+
+a = b = c = Vector<int>{3} calls the move ctor for c and two times the copy ctor for a and b.
+
+An L value is a value on the left hand side inside a statement. An R value stays on the right hand side.
+
+Let's take as an example:
+
+Vector<int> a,b;
+a = Vector<int>{4}
+b = a;
+
+a = Vector<int>{4} will use the MOVE SEMANTICS since the R value could not be a L value.
+b = a will use the COPY SEMANTICS since a can be both an L and an R value.
+
+*/
 #include <algorithm>  // std::copy
 #include <iostream>
 #include <memory>
@@ -12,7 +28,7 @@ class Vector {
  public:
   // custom ctor
   explicit Vector(const std::size_t length)
-      : _size{length}, elem{new num[length]{}} {
+      : _size{length}, elem{new num[length]{}} { //the {} after [length] set all the array elements to 0
     std::cout << "custom ctor\n";
   }
 
@@ -32,7 +48,7 @@ class Vector {
   /////////////////////////
   // copy semantics
 
-  // copy ctor -- deep copy
+  // copy ctor -- deep copy: slower than a shallow copy, but the two vectors are independent
   Vector(const Vector& v);
 
   // copy assignment -- deep copy
@@ -44,7 +60,8 @@ class Vector {
   // move semantics
 
   // move ctor
-  Vector(Vector&& v) noexcept
+  // IMPORTANT: Remember to use noexcept when using move semantics
+  Vector(Vector&& v) noexcept //no const since it is changing the values of v, leaving it in an undefined state. Noexcept since there is no possible memory mismatch
       : _size{std::move(v._size)}, elem{std::move(v.elem)} {
     std::cout << "move ctor\n";
   }
@@ -79,9 +96,9 @@ class Vector {
 
 // copy ctor
 template <typename num>
-Vector<num>::Vector(const Vector& v) : _size{v._size}, elem{new num[_size]} {
+Vector<num>::Vector(const Vector& v) : _size{v._size}, elem{new num[_size]} { //v._size is private, but since it has the same type as the new vector, private members are accessible
   std::cout << "copy ctor\n";
-  std::copy(v.begin(), v.end(), begin());
+  std::copy(v.begin(), v.end(), begin()); //begin and end from where to copy, begin to copy destination. Assumes size is enough.
 }
 
 // copy assignment
