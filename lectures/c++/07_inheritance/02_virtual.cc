@@ -1,6 +1,15 @@
 #include <ap_error.h>
 #include <iostream>
 
+// override is used as last word when declaring a function for runtime polymorphism since c++11
+// before that, the virtual keyword was repeated in child class
+// but that lead to errors since typos weren't notified
+
+// to use the parent version of a virtual function we have to use the fully qualified name ParentClassName::FunctionName (line 40)
+
+// the advantage of using runtime polymorphism over templates is that only one copy of the function is generated, instead of one
+//for each possible child of parent.
+
 struct Animal {
   unsigned int age;
   double weight;
@@ -65,7 +74,7 @@ int main() {
 
     newline();
 
-    print_animal(s);
+    print_animal(s); // now it works!
 
     return 0;
   } catch (std::runtime_error& e) {

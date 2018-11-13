@@ -1,6 +1,10 @@
 #include <ap_error.h>
 #include <iostream>
 
+// By implementing a pure virtual function inside a class, we are specifying the class as virtual. (see line 18)
+// If a child does not override the pure virtual function, it is abstract as well.
+// If parent members are private, we can access them only through public functions (getters or others)
+
 class Animal {
   unsigned int age;
   double weight;
@@ -10,9 +14,9 @@ class Animal {
     AP_ERROR_GE(weight, 0) << "invalid weight!\n";
   }
 
-  Animal() : Animal{0, 0} {}  // delegating constructor
+  Animal() : Animal{0, 0} {}  // delegating constructor, useful for always checking values (avoids breaking changes)
 
-  virtual void speak() const = 0;
+  virtual void speak() const = 0; // this is a pure virtual function
   virtual void info() const noexcept {
     std::cout << "age:\t" << age << '\n' << "weight:\t" << weight << '\n';
   }
@@ -23,8 +27,11 @@ class Animal {
 class Dog : public Animal {
  public:
   void speak() const noexcept override { std::cout << "Bau\n"; }
-  Dog() = default;
-  Dog(const unsigned int a, const double d) : Animal{a, d} {}
+  //Dog() = default;
+  //Dog(const unsigned int a, const double d) : Animal{a, d} {}
+  // To avoid repetition, since it uses the same ctors as Animal
+  // Do this only if you want exactly all the constructors of parent
+  using Animal::Animal;
 };
 
 class Snake : public Animal {
@@ -60,7 +67,20 @@ class NonDangerousSnake : public Snake {
 
 struct Python : public NonDangerousSnake {};
 
-using Anaconda = DangerousSnake;
+using Anaconda = DangerousSnake; //can be templated
+
+/*
+Example:
+
+template <int rows, int columns, class T>
+class Matrix
+{
+  ...
+}
+
+template <int rows, class T>
+using Vector = Matrix<1, i, T>
+*/
 
 void print_animal(const Animal& a) noexcept {
   std::cout << "throught ref\n";

@@ -1,6 +1,9 @@
 #include <ap_error.h>
 #include <iostream>
 
+// Dynamic cast is performed at runtime instead of normal (static cast) which is performed at compile time.
+// see line 71
+
 class Animal {
   unsigned int age;
   double weight;
@@ -80,7 +83,7 @@ int main() {
     // Animal* p = new DangerousSnake{1, 2.3};
     Animal* p = new Anaconda{1, 2.3};
 
-    print_animal(*p);
+    print_animal(*p); // calls 911 because of dynamic_cast
     delete p;
 
     return 0;

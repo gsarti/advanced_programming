@@ -4,6 +4,9 @@
 // void info()
 // void speak()
 
+// A dog has an animal != a dog is an animal
+// We assume that all animals behave in the same way
+
 struct Animal {
   unsigned int age;
   double weight;
