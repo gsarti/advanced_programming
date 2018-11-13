@@ -1,8 +1,8 @@
 EXE = exe.x
 CXX = c++
-CFLAGS = -I include -g -std=c++11 -Wall -Wextra -I ../../../lectures/04_error_handling/
+CFLAGS = -I include -g -std=c++11 -Wall -Wextra -I ../../../lectures/05_error_handling/
 
-SRC= main.cc src/dog.cc src/animal.cc src/snake.cc src/helper_functions.cc
+SRC= main.cc src/dog.cc src/animal.cc src/snake.cc src/helper_functions.cc # contain the path
 OBJ=$(SRC:.cc=.o)
 INC = $(wildcard *.h)
 
