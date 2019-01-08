@@ -1,0 +1,73 @@
+-c = flag for gcc used to compile files
+
+-I = flag used to specify the .h files path
+
+-fpic = allow to compile files with position-independent code. 
+		Useful for libraries, since we don't care about code position.
+
+Common prefix for libraries: lib
+Common suffix for libraries: 1) .so (shared object) for shared libraries
+							 2) .a (archive) for static libraries
+
+g++ -c src/conclusion.cc -I include -fpic
+g++ -c src/greetings.cc -I include -fpic
+g++ -shared conclusion.o greetings.o -shared libgreetings.so
+
+A function can check during preprocessing phase if a symbol is defined,
+and adapt it behavior accordingly. The preprocessor can know symbols in
+two ways:
+
+ - Defining them at compile time using the -D symbol flag
+ - Defining them inside a header file using the macro #define symbol
+
+To link against a library, use -lname for the library named libname.so
+Use -L to specify the path of custom libraries to be linked (can be used
+multiple times to specify all custom libraries paths).
+
+The command make install is commonly used to copy and paste the library
+and all its headers in a local folder commonly called prefix, which makes
+it cleaner to compile linking against the library since all the files
+are in a single place.
+
+ldd to validate which libraries were used to compile an executable
+
+We can export LD_LIBRARY_PATH=/new/path:$LD_LIBRARY_PATH to add the new
+paths to our library paths.
+
+The -B flag for make force recompilation for all files. We can change
+the value of variables instantiated in the Makefile directly when we use
+make command:
+
+make LANG=ITALIAN -B
+
+Internal and external linkage refers to the visibility of a symbol among
+members of the same compiling group. 
+If we use the keyword "extern" for the linker in order to specify that
+the symbol is already defined somewhere else. Functions have an external
+linkage by default.
+Const and constexpr implies internal linkage, which means that each
+external unit have its own copy of the variable. To achieve the same on
+a global variable without making it const, we use the keyword "static".
+
+Declaring a static variable inside a function instantiates it only
+once for all the function calls inside the program.
+
+A static variable in a class is a variable shared among all the instances
+of that class. The static variables is not really a part of the class in
+memory, and so it can be convenient in some cases to reduce class size.
+
+ODR = One Definition Rule
+Definition != declaration. Declaration is when we declare the body of a 
+function, definition when we introduce a new symbol. Definition can
+contain a declaration.
+A function is usually declared as static when it is inside a source file,
+in order to add internal linking for the function. In headers, we use the
+keyword "inline" for functions in order to make the compiler automatically
+move the definition near the declaration. Functions declared inside classes
+are automatically inlined.
+
+Problems with the one definition rule doesn't apply to templates.
+
+
+
+
