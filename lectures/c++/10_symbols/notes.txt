@@ -68,6 +68,12 @@ are automatically inlined.
 
 Problems with the one definition rule doesn't apply to templates.
 
+-Wl flag is used to specify the library runpaths to be find by executables during compilation.
+
+Ex. -lgreetings -L $(LFLAG) -Wl,-rpath,$(GDIR)
+
+where GDIR is the path of the library.
+
 
 
 
