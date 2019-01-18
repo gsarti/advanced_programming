@@ -1,0 +1,52 @@
+We compile with -E to see the result of the preprocessor, and with -S to
+see the assembly.
+
+We compile a file with gcc and then execute nm a.out
+
+We see now a list of symbols: main, which is the name of our main function,
+is marked as T "text", to mean it contains the actual code. The functions
+marked as U are "undefined" inside the current file. Static functions
+inside the file are marked as t for "text internal linkage".
+Constant values are marked as R "readonly", if they're static r.
+Actually, since c++11 const implies internal linkage, so always r.
+Normal variables are marked as D "data", if they're static d.
+Extern variables are marked as U also.
+
+A code using the function exp in c should link the math.h through -lm.
+If we use the flag -O3, the linking isn't needed anymore because optimi
+zation doesn't actually make use of the function.
+
+In C++ names of functions are changed with a standard prefix and a 
+suffix representing arguments, while in C functions are represented 
+only with their names. This different name mangling explain why in C++
+overloading is allowed and not in C (ambiguity).
+
+To link a C and a C++ file, you have to use the linker where the main is
+written:
+
+#Compiling files from different languages in a separate fashion
+1)gcc -c hello.c
+2)g++ -c main.cpp -std=c++11
+#Linking them with g++
+3)g++ hello.o main.o -o exe
+
+This doesn't work because the C++ linker looks for the wrong name, since
+name mangling is different. To specify that we want the C name mangling
+for the header hello, we wrap it in the main.cpp with extern "C" { }.
+By doing that and recompiling we obtain the right result.
+
+To link a c++ file with classes to a C main, we should create an interface
+that defines the methods of the class in a c-complying way (using typedef for class
+and methods with different names for overloading) to avoid exposing unknown symbols to
+C compiler. Since the interface is going to be a .h file that is both 
+included in the .cpp file that implements its methods and the C main, 
+we should wrap the extern "C" inside the file with #ifdef _cplusplus in
+order to use the same file in both compilations.
+
+After creating the interface in .h and declaring its methods using cpp
+syntax in .cpp, we compile both the class .cpp file and the interface
+.cpp file using c++, and then compile main.c linking the class (which
+does not need extern, since it is used only in the interface) and the 
+interface, with appropriate libraries.
+
+
